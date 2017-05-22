@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/table.css">
+
+<style>
+
+</style>
+</head>
+<body>
+    <div id="clients">
+        <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+    <table id="data">
+        <tr>
+            <th>ID</th>
+            <th>Frist Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+    </table>
+        
+    <script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://api.myjson.com/bins/arcxt";
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var arr = JSON.parse(this.responseText);
+            myFunction(arr);
+        }
+    };
+        
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+    var table = document.getElementById("data");
+
+    function myFunction(arr) {
+        var res = "";
+        var i, row, cell1, cell2, cell3, cell4 ; 
+        for(i = 0; i < arr.length; i++) {
+            //res += '<a href="' + arr[i].url + '">' + 
+            //arr[i].display + '</a><br>';
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell3 = row.insertCell(2);
+            cell4 = row.insertCell(3);
+            cell1.innerHTML = arr[i].id;
+            cell1.setAttribute('contentEditable', 'true');
+            cell2.innerHTML = arr[i].first_name;
+            cell2.setAttribute('contentEditable', 'true');
+            cell3.innerHTML = arr[i].last_name;
+            cell3.setAttribute('contentEditable', 'true');
+            cell4.innerHTML = arr[i].email;
+            cell4.setAttribute('contentEditable', 'true');
+        }
+    }
+    </script>
+        
+    <script>
+        //search
+    function search() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("data");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+        
+</script>
+
+    </div>    
+    
+    
+</body>
+</html>
