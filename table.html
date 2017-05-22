@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Datatable</title>
 <link rel="stylesheet" type="text/css" href="css/table.css">
-
 <style>
 
 </style>
 </head>
 <body>
     <div id="clients">
-        <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+        <input type="text" id="word" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
     <table id="data">
         <tr>
             <th>ID</th>
@@ -18,7 +18,6 @@
             <th>Email</th>
         </tr>
     </table>
-        
     <script>
     var xmlhttp = new XMLHttpRequest();
     var url = "https://api.myjson.com/bins/arcxt";
@@ -60,15 +59,15 @@
     <script>
         //search
     function search() {
-      var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
+      var word, ss, table, tr, td, i;
+      word = document.getElementById("word");
+      ss = word.value.toUpperCase();
       table = document.getElementById("data");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[1];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          if (td.innerHTML.toUpperCase().indexOf(ss) > -1) {
             tr[i].style.display = "";
           } else {
             tr[i].style.display = "none";
